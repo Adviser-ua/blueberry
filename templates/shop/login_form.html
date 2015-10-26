@@ -1,0 +1,14 @@
+<form id="login" method="post" action="/login/">
+    {% csrf_token %}
+    {% if login_error %}
+        <label class="error">{{ login_error }}</label>
+    {% endif %}
+    <fieldset id="inputs">
+        <input name="username" type="text" placeholder="Логин" autofocus required>
+        <input name="password" type="password" placeholder="Пароль" required>
+    </fieldset>
+    <fieldset id="actions">
+        <input type="submit" id="submit" value="ВОЙТИ">
+        <a href="">Забыли пароль?</a><a href="">Регистрация</a>
+    </fieldset>
+</form>

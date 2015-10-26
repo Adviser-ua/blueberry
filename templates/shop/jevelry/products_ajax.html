@@ -1,0 +1,47 @@
+
+    <!--Start Category Product List-->
+  <div id="container">
+    <ul class="products-grid first odd">
+    {% for item in product_list %}
+      <li class="item first last"> <a href="/products/{{ item.id }}" title="{{ item.name }}" class="product-image"><img height="200px"  src="{{STATIC_URL}}{{ item.image.thumbnail.url }}" alt="No Photo"/></a>
+        <h2 class="product-name"> <a href="/products/{{ item.id }}" title="{{ item.name }}">{{ item.name }}</a> </h2>
+        <div class="price-box"> <span class="regular-price"> <span class="price">{{ item.price }}</span> </span> </div>
+        <div class="actions">
+          <button type="button" title="Add to Cart" onclick="toCart({{ item.id }}, '1')" class="button btn-cart"><span><span>Add to Cart</span></span></button>
+            <div class="ajax">
+                <a href="{{STATIC_URL}}/{{ item.image.url }}" class="fancybox quick_view">quick view</a>
+            </div>
+          <ul class="add-to-links">
+            <li><a href="#" class="link-wishlist">Add to Wishlist</a></li>
+            <li class="last"><a href="#" onclick="addCompare({{ item.id }}); this.removeAttr(onclick)" class="link-compare">Add to Compare</a></li>
+          </ul>
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+
+    <!--End Category Product List-->
+    <!--Start toolbar bottom-->
+    <div class="toolbar-bottom">
+      <div class="toolbar">
+          <div class="pages">
+              <ol>
+                  {% if product_list.has_previous %}
+                    <a href="#" onclick="filterApply({{ product_list.previous_page_number }})">Prev</a>
+                  {% endif %}
+                    {% for p in page_range %}
+                        {% if p == product_list.number %}
+                            <li class="current">{{ p }}</li>
+                        {% else %}
+                            <li onclick="filterApply({{ p }})"><a href="#">{{ p }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                  {% if product_list.has_next %}
+                      <a href="#" onclick="filterApply({{ product_list.next_page_number }})">Next</a>
+                  {% endif %}
+              </ol>
+          </div>
+        </div>
+    </div>
+    <!--End toolbar bottom-->

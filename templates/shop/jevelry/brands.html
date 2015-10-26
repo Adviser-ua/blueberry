@@ -1,0 +1,18 @@
+{% extends 'shop/jevelry/products.html' %}
+
+{% block products %}
+    <!--Start Category Product List-->
+    <div id="all_product">
+        <ul class="products-grid first odd">
+            {% for item in product_list %}
+          <li class="item first last"> <a href="{{ item.id }}" class="product-image"><img src="/{{ item.image.thumbnail.url }}" alt="Фото пока что не добавлено"/></a>
+            <h2 class="product-name"> <a href="#" title="{{ item.name }}">{{ item.name }}</a> </h2>
+{#              <button  title="Купить одну единицу" onclick="toCart({{ item.id }}, '/add_to_cart/')" class="button btn-cart">#}
+{#                  <span><span>В Корзину</span> </span>#}
+              </button>
+          </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!--End Category Product List-->
+{% endblock %}

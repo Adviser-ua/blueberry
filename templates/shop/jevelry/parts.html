@@ -1,0 +1,12 @@
+{% extends 'shop/jevelry/products.html' %}
+    {% block products %}
+    <!--Start Category Product List-->
+    <ul class="products-grid first odd ">
+        {% for item in product_list %}
+      <li class="item first last"> <a href="{{ item.id }}" class="product-image"><img src="/{{ item.image.thumbnail.url }}" alt="Фото пока что не добавлено"/></a>
+        <h2 class="product-name"> <a href="#" title="{{ item.name }}">{{ item.name }}</a> </h2>
+      </li>
+        {% endfor %}
+    </ul>
+    <!--End Category Product List-->
+    {% endblock %}

@@ -1,0 +1,5 @@
+<ul id="magicat">
+{% for item in compare_list %}
+    <li class="level0-inactive level0 inactive"><span class="magicat-cat"><a href="/products/{{ item.product.id }}"><span>{{ item.product.name }}</span></a></span> </li>
+{% endfor %}
+</ul>

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!--START OF MAIN CONTENT-->
+    <div class="main-container col1-layout">
+      <div class="main">
+        <div class="col-main">
+          <div id="messages_product_view"></div>
+          <div class="product-view">
+            <div class="product-essential"> 
+              <!--Start Product Information Right-->
+              <div class="product-shop"> 
+                <!--Prev/Next Code Start-->
+                <div class="f-fix mb-10"><a href="#" class="prod-prev">PREV</a> <a class="prod-next" href="#">NEXT</a> </div>
+                <!--Prev/Next Code End--> 
+                <!--Product Title-->
+                <div class="product-name">
+                  <h1>{{ product.brand }}  {{ product.name }}</h1>
+                </div>
+                <p class="availability in-stock"><span>In stock</span></p>
+                <div class="price-box"> <span class="regular-price" id="product-price-167"> <span class="price">${{ product.price }}</span> </span> </div>
+                <div class="pro-left">
+                  <div class="short-description">
+                    <h2>Описание</h2>
+                    <div class="std">{{ product.description }} </div>
+                  </div>
+                  <div class="short-description">
+                    <h2>Добавлено</h2>
+                    <div class="std">{{ product.date_add }} </div>
+                  </div>
+                  <div class="short-description">
+                    <h2>Инкрустация</h2>
+                    <div class="std">{{ product.incrustation }} </div>
+                  </div>
+                  <div class="short-description">
+                    <h2>Материал</h2>
+                    <div class="std">{{ product.material }} </div>
+                  </div>
+                  <div class="review">
+                    <div class="size_guide"><a class="ajax" href="{{ STATIC_URL }}fashion/images/size_chart.gif"><span>Click here to watch Size Guide</span> </a></div>
+                  </div>
+                </div>
+
+                <div class="pro-right">
+                  <ul class="add-to-links">
+                    <li><a href="#" class="link-wishlist">Add to Wishlist</a></li>
+                    <li><span class="separator">|</span> <a href="#" class="link-compare">Add to Compare</a></li>
+                  </ul>
+                  <p class="email-friend"><a href="#">Email to a Friend</a></p>
+                  <div class="">
+                    <div class="">
+                        {% csrf_token %}
+{#                        <input name="qty" id="qty" maxlength="2" value="1" title="Qty" class="input-text qty" type="text" />#}
+                        <input name="qty" id="qty"  value="1" title="Qty" class="input-text qty" type="hidden" />
+                        <input name="product_id" type='hidden'  value="{{ product.id }}" />
+                        <button onclick="toCart({{ product.id }}, 'one')" title="Add to Cart" class="button btn-cart" >
+                            <span><span>Add to Cart</span></span>
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--End Product Information Right--> 
+
+              <!--Start Product Image Zoom Left-->
+              <div class="product-img-box">
+                <p class="product-image product-image-zoom"> <a href='{{STATIC_URL}}/{{ product.image.url }}' class = 'cloud-zoom' id='zoom1'
+            rel="adjustX: 10, adjustY:-4"> <img style="max-height:400px; width:400px;" src="{{STATIC_URL}}/{{ product.image.url }}" alt='' title="Optional title display" /> </a> </p>
+              </div>
+              <!--End Product Image Zoom Left-->
+              <div class="clearer"></div>
+                {#                    Блок коментариев#}
+                    <div>
+                        <h1>Отзывы:</h1>
+                    <br>
+                        {% for comment in comments %}
+                            <table class="table table-hover table-condensed">
+                                <tr>
+                                    <td width="15%">
+                                        <h2>{{ comment.author }}</h2>
+                                        <h6>{{ comment.date_add }}</h6>
+                                    </td>
+                                    <td>
+                                        <h5>{{ comment.comment }}</h5>
+                                    </td>
+                                </tr>
+                            </table>
+                        {% endfor %}
+
+                        <div style=""></div>
+                            <form action="/products/{{ product.id }}/" method="post">
+                                {% csrf_token %}
+                                <p><b>Введите ваш отзыв:</b></p>
+{#                                {{ form.as_p }}#}
+
+                                {% if user.is_authenticated %}
+                                    <p><label>{{ user }}</label></p>
+                                    <p><input name="author" value="{{ user }}" type="hidden"></p>
+                                    {% else %}
+                                    <p><input name="author" placeholder="Автор."></p>
+                                {% endif %}
+                                <p><textarea rows="5" cols="80" name="comment" placeholder="Сообщение."></textarea></p>
+                                <p><input type="hidden" name="product_id" value="{{ product.id }}"></p>
+                                <p><button type="submit" class="button-gloss">Отправить</button></p>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display: none;" id="back-top"> <a href="#"><img alt="" src="{{ STATIC_URL }}fashion/images/backtop.gif" /></a> </div>
+    </div>
+    <!--END OF MAIN CONTENT--> 
+    
+{% endblock %}

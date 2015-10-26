@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="">
+        <table id="compare_block" class="table table-hover table-condensed">
+            <tr>
+            {% for item in compare_list %}
+                <th><a href="/products/{{item.product.id}}">{{item.product.name}}</a>
+                <a href="/delete_from_compare/{{item.product.id}}">delete</a></th>
+            {% endfor %}
+            </tr><tr>
+            {% for item in compare_list %}
+                <td>{{item.product.price}}</td>
+            {% endfor %}
+            </tr><tr>
+            {% for item in compare_list %}
+                <td>{{item.product.rating}}</td>
+            {% endfor %}
+            </tr><tr>
+            {% for item in compare_list %}
+                <td>{{item.product.rating}}</td>
+            {% endfor %}
+            </tr><tr>
+            {% for item in compare_list %}
+                <td>{{item.product.incrustation}}</td>
+            {% endfor %}
+            </tr><tr>
+            {% for item in compare_list %}
+                <td>{{item.product.brand}}</td>
+            {% endfor %}
+            </tr><tr>
+            {% for item in compare_list %}
+                <td>{{item.product.material}}</td>
+            {% endfor %}
+            </tr><tr>
+            {% for item in compare_list %}
+                <td>{{item.product.date_add}}</td>
+            {% endfor %}
+            </tr><tr>
+            {% for item in compare_list %}
+                <td>{{item.product.size}}</td>
+            {% endfor %}
+            </tr><tr>
+            {% for item in compare_list %}
+                <td>{{item.product.gender}}</td>
+            {% endfor %}
+            </tr><tr>
+            {% for item in compare_list %}
+                <td>{{item.product.availabitrty}}</td>
+            {% endfor %}
+            </tr>
+        </table>
+    </div>
+{% endblock %}

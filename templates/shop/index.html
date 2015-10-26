@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!--START OF MAIN CONTENT-->
+    <div class="main-container col1-layout"> 
+      <!--Start of Home Content-->
+      <div class="main">
+        <div class="col-main">
+          <div class="std"> 
+            
+            <!--Start Banner-->
+            <div class="banner_box">
+              <div class="slider-wrapper banner"> 
+                <!--Place your banner images-->
+                <div id="slider" class="banner_slider"> <a href="#"><img src="{{ STATIC_URL }}fashion/images/banner_1.jpg" alt="" /></a> <a href="#"><img src="{{ STATIC_URL }}fashion/images/banner_2.jpg" alt="" /></a> <a href="#"><img src="{{ STATIC_URL }}fashion/images/banner_3.jpg" alt="" /></a> <a href="#"><img src="{{ STATIC_URL }}fashion/images/banner_4.jpg" alt="" /></a> </div>
+              </div>
+              <div class="promotional_block"> <!--Place your promotional images-->
+                <div class="block_one"> <a href="#"><img src="{{ STATIC_URL }}fashion/images/promo1.jpg" alt="" /></a> </div>
+                <div class="block_one"> <a href="#"><img src="{{ STATIC_URL }}fashion/images/promo2.jpg" alt="" /></a> </div>
+                <div class="block_two"> <a href="#"><img src="{{ STATIC_URL }}fashion/images/promo3.jpg" alt="" /></a> </div>
+              </div>
+            </div>
+            <!--End Banner--> 
+            
+            <!--Start New Products-->
+            <div class="box-center">
+              <div class="special">
+                <div style="visibility: visible;" id="mix_container" class="mix_container">
+                  <h1 class="category_page_title">Случайные товары:</h1>
+                  <div class="mix_nav"> <span id="mix_prev" class="mix_prev">Previous</span> <span id="mix_next" class="mix_next">Next</span> </div>
+                  <div id="container" class="mix_wrapper">
+                    <ul style="position: relative;" class="mix_gallery">
+{% for item in product_list %}
+                      <li class="item mix_row last">
+                        <div class="outer box"> <a href="#" class="product-image"><img src="{{ item.image.thumbnail.url }}" alt="Нет Фото" /></a>
+                          <div class="ic_caption">
+                            <h2 class="product-name"><a href="/product/{{ item.id }}" title="Imperdiet id tincidunt ">{{ item.name }} </a></h2>
+                            <div class="actions">
+                                <div class="review">
+                                    <p class="no-rating"><a href="#"></a></p>
+                                    <div class="fancybox quickllook"><a class="ajax" href="{{ item.image }}"><span>Быстрый просотр</span> </a></div>
+                                    <div>
+                                        {% csrf_token %}
+                                        <button  title="Купить одну единицу" onclick="toCart({{ item.id }}, 1)" class="button btn-cart">
+                                            <span><span>В Корзину</span> </span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="price-box"> <span class="regular-price"> <span class="price">${{ item.price }}</span> </span> </div>
+                             </div>
+                          </div>
+                        </div>
+                      </li>
+{% endfor %}
+
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End New Products--> 
+            
+          </div>
+        </div>
+      </div>
+      <!--End of Home Content--> 
+      <div style="display: none;" id="back-top"> <a href="#"><img alt="" src="{{ STATIC_URL }}fashion/images/backtop.gif" /></a> </div>
+    </div>
+    <!--END OF MAIN CONTENT-->  
+
+    {% endblock %}

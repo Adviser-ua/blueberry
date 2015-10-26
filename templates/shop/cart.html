@@ -1,0 +1,54 @@
+﻿    <table id="cart" class="table table-hover table-condensed">
+    <!-- Заголовок таблици -->
+        <thead>
+            <tr>
+                <th class="classy"><h2>Изображение</h2></th>
+                <th class="classy"><h2>Товар</h2></th>
+                <th class="classy"><h2>Количество</h2></th>
+                <th class="classy"><h2>Цена</h2></th>
+                <th class="classy"><h2>Действие</h2></th>
+            </tr>
+        </thead>
+        <tbody>
+    <!-- тело таблици -->
+{% for item in cart %}
+            <tr>
+                <th>
+                    <a class="product-image"><img src="{{STATIC_URL}}/{{item.product.image.thumbnail.url }}" width="50px" /></a>
+                </th>
+                <th class=""><h2><a href="/products/{{item.product.id}}/">{{item.product}}</a></h2></th>
+                <th>
+                    <div class="add-to-cart">
+                        {% csrf_token %}
+                        <input name="qty" id="qty{{ item.id }}" maxlength="2" value="{{ item.quantity }}" title="Qty" onchange="toCart({{ item.product.id }}, $jq('#qty{{ item.id }}').val())" class="input-text qty" type="text" />
+                    </div>
+                </th>
+                <th class="">{{item.total_price}} грн.</th>
+                <input type="hidden" value="{{item.product.id}}" name="product_id">
+                <th>
+                    <a class="" href="#" onclick="removeFromCart({{ item.product.id }}, '/remove_from_cart/')" name="action" >Удалить</a>
+                </th>
+            </tr>
+{%endfor%}
+        </tbody>
+    <!-- Итоги таблици -->
+
+
+        <tfoot>
+        <tr>
+            <td class="">
+                <a class="button-gloss" href="#" onclick="removeFromCart('', '/clear_cart/')" type="button">Очистить</a>
+            </td>
+            <td></td>
+            <td class=""><strong><h2>Итого:</h2></strong></td>
+            <td class=""><strong><h2>{{cart.summary}} грн</h2></strong></td>
+            <td>
+                {% if cart.count == 0 %}
+                    <a href="#" class="button-gloss">Заказать</a>
+                {% else %}
+                    <a href="/checkout/" class="button-gloss" >Заказать</a>
+                {% endif %}
+            </td>
+        </tr>
+        </tfoot>
+    </table>

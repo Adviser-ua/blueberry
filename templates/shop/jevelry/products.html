@@ -1,0 +1,217 @@
+ {% extends 'base.html' %}
+ {% block content %}
+    <!--START OF MAIN CONTENT-->
+    <div class="main-container col2-left-layout">
+      <div class="main">
+      <div class="col-main">
+      <!--Category Title-->
+      <div class="category-products">
+        <!--Start toolbar-->
+        <div class="toolbar">
+          <label>Показать</label>
+          <select id="product_on_page" onchange="filterApply()">
+              {% if session.product_on_page == '1' %}
+                <option selected="selected"> 1 </option>
+                  <option> 9 </option>
+                <option> 15 </option>
+                <option> 30 </option>
+              {% elif session.product_on_page == '9' %}
+                  <option> 1 </option>
+                <option selected="selected"> 9 </option>
+                <option> 15 </option>
+                <option> 30 </option>
+              {% elif session.product_on_page == '15' %}
+                  <option> 1 </option>
+                <option> 9 </option>
+                <option selected="selected">15</option>
+                <option> 30 </option>
+              {% else %}
+                  <option> 1 </option>
+                <option> 9 </option>
+                <option> 15 </option>
+                <option selected="selected">30</option>
+              {% endif %}
+          </select>
+            <label class="pages">Сортировать</label>
+            <select id="sort_by" onchange="filterApply()">
+                {% if session.sort_by == '1' %}
+                    <option value='1' selected="selected">По возрастанию цены</option>
+                    <option value='2'>  По убыванию Цены  </option>
+                    <option value='3'> От дате добавления </option>
+                {% elif session.sort_by == '2' %}
+                    <option value='1'>По возрастанию цены</option>
+                    <option value='2' selected="selected">По убыванию Цены</option>
+                    <option value='3'>От дате добавления</option>
+                {% else %}
+                    <option value='1'>По возрастанию цены</option>
+                    <option value='2'>По убыванию Цены</option>
+                    <option value='3' selected="selected">По дате добавления</option>
+                {% endif %}
+          </select>
+          <div class="sorter">
+            <p class="view-mode">
+              <label>View as:</label>
+                <a href="#" title="List" onclick="$jq('#container ul').removeClass('products-grid').addClass('products-list');" class="list">List</a>
+                <a href="#" title="Grid" onclick="$jq('#container ul').removeClass('products-list ').addClass('products-grid');" class="grid">Grid</a>
+          </div>
+        </div>
+            <!--End toolbar-->
+                <div id="products" class="">
+                </div>
+            </div>
+        </div>
+        <div class="col-left sidebar"> 
+          <!--Start Magic Category Block-->
+          <div class="magicat-container">
+            <div class="block">
+              <div class="block-title cat_heading"> <strong><span>{{ part }}</span></strong> </div>
+              <ul id="magicat">
+                  {% for category in categories %}
+                    <li class="level0-inactive level0 inactive"><span class="magicat-cat"><a href="#"><span>{{ category.name }}</span></a></span> </li>
+                  {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <!--End Magic Category Block--> 
+        <div class="col-left sidebar">
+          <!--Start Magic Category Block-->
+          <div class="block block-layered-nav">
+            <div class="block-title">Выбрано:</div>
+              <ul id="selected">
+              </ul>
+          </div>
+        </div>
+
+          <!--Start Layered nav-->
+          <div class="block block-layered-nav">
+            <div class="block-title" > <strong><span>Фильтры</span></strong></div>
+            <div class="block-content">
+              <div id="narrow-by-list">
+                <div>
+                  <div class="last collapse highlight" id="filter_price_button" onclick="views('#filter_price_content', '#filter_price_button')">Цена</div>
+                  <div class="last odd" id="filter_price_content">
+                      <form method="get">
+                    <ul>
+                      <li> <a href="#" id="price1" onclick="filterApply('$0.00 - $10.00')"><span class="price">$0.00</span> - <span class="price">$10.00</span></a> (2) </li>
+                    </ul>
+                  </div>
+                  <div class="last collapse highlight" id="filter_size_button" onclick='views("#filter_size_content", "#filter_size_button")'>Размер({{ sizes|length }})</div>
+                  <div class="last odd" id="filter_size_content">
+                    <ul>
+                        {% for size in sizes %}
+                            <li> <a href="#" id="size{{ size.id }}" onclick="filterApply('{{ size }}')"><span class="">{{ size }}</span></a></li>
+                        {% endfor %}
+                    </ul>
+                  </div>
+                  <div class="last collapse highlight" id="filter_incrustation_button" onclick='views("#filter_incrustation_content", "#filter_incrustation_button")'>Инкрустация({{ incrustations|length }})</div>
+                  <div class="last odd" id="filter_incrustation_content">
+                    <ul>
+                      {% for incrus in incrustations %}
+                        <li> <a href="#" onclick="filterApply('{{ incrus }}')"><span class="">{{ incrus.name }}</span></a></li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  <div class="last collapse highlight" id="filter_brand_button" onclick='views("#filter_brand_content", "#filter_brand_button")'>Брэнд({{ brands|length }})</div>
+                  <div class="last odd" id="filter_brand_content">
+                    <ul>
+                      {% for brand in brands %}
+                        <li> <a href="#" onclick="filterApply('{{ brand }}')"><span class="">{{ brand.name }}</span></a></li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  <div class="last collapse highlight" id="filter_metal_button" onclick='views("#filter_metal_content", "#filter_metal_button")'>Метал({{ materials|length }})</div>
+                  <div class="last odd" id="filter_metal_content">
+                    <ul>
+                      {% for material in materials %}
+                        <li> <a href="#" onclick="filterApply('{{ material }}')"><span class="">{{ material.name }}</span></a></li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                  <div class="last odd" id="filter_gen_content">
+                    <ul>
+                      {% for gen in gendor %}
+                        <li> <a href="#" onclick="filterApply('{{ gen }}')"><span class="">{{ gen }}</span></a></li>
+                      {% endfor %}#}
+                    </ul>
+                  </form>
+                  </div>
+
+                  <script type="text/javascript">
+//                      Функция вызывается для того что бы свернуть все фильтры
+                    function collaps_all() {
+                        views('#filter_price_content', '#filter_price_button', true);
+                        views('#filter_size_content', '#filter_size_button', true);
+                        views('#filter_incrustation_content', '#filter_incrustation_button', true);
+                        views('#filter_brand_content', '#filter_brand_button', true);
+                        views('#filter_gen_content', '#filter_gen_button', true);
+                        views('#filter_metal_content', '#filter_metal_button', true);
+                    };
+                      collaps_all();
+                      filterApply();
+                  </script>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!--End Layered nav-->
+          
+          <!--Start Compare Products-->
+          <div class="block block-list block-compare">
+            <div class="block-title"><strong><span>Compare Products</span></strong> </div>
+            <div class="block-content" id="compare_block">
+                <ul id="">
+                {% for item in compare_list %}
+                    <li>
+                        <a href="/products/{{ item.product.id }}">{{ item.product.name }}    </a>
+                        <a href="/delete_from_compare/{{ item.product.id }}">delete</a> </span>
+                    </li>
+                {% endfor %}
+                </ul>
+
+            </div>
+
+          <a class="button-gloss" href="/compare">Сравнить</a>
+          </div>
+          <!--End Compare Products--> 
+          
+          <!--Start Poll-->
+          <div class="block block-poll">
+            <div class="block-title"> <strong><span>Community Poll</span></strong> </div>
+            <form action="">
+              <div class="block-content">
+                <p class="block-subtitle">What is your favorite Magento feature?</p>
+                <ul id="poll-answers">
+                  <li class="odd">
+                    <input name="vote" class="radio poll_vote" id="vote_5" value="5" type="radio"/>
+                    <span class="label">
+                    <label for="vote_5">Layered Navigation</label>
+                    </span> </li>
+                  <li class="even">
+                    <input name="vote" class="radio poll_vote" id="vote_6" value="6" type="radio"/>
+                    <span class="label">
+                    <label for="vote_6">Price Rules</label>
+                    </span> </li>
+                  <li class="odd">
+                    <input name="vote" class="radio poll_vote" id="vote_7" value="7" type="radio"/>
+                    <span class="label">
+                    <label for="vote_7">Category Management</label>
+                    </span> </li>
+                  <li class="last even">
+                    <input name="vote" class="radio poll_vote" id="vote_8" value="8" type="radio"/>
+                    <span class="label">
+                    <label for="vote_8">Compare Products</label>
+                    </span> </li>
+                </ul>
+                <div class="actions">
+                  <button type="submit" title="Vote" class="button"><span><span>Vote</span></span></button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!--End Poll--> 
+        </div>
+      </div>
+    </div>
+    <!--END OF MAIN CONTENT-->
+    {% endblock %}

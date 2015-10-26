@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>
+        {% if title %}
+            {{ title }}
+        {% else %}
+            Cherry
+        {% endif %}
+    </title>
+    <meta name="description" content="Default Description" />
+    <meta name="keywords" content="Magento, Varien, E-commerce" />
+    <meta name="robots" content="INDEX,FOLLOW" />
+    <link rel="icon" href="#" type="image/x-icon" />
+    <link rel="shortcut icon" href="#" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap/css/myTable.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap/css/myButtons.css" media="all" />
+
+    <!-- CSS =====================================================================================-->
+    <link rel='stylesheet' type='text/css' href='{{ STATIC_URL }}fashion/font/Telex-Regular.ttf' />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fashion/css/styles.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fashion/css/skin.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fashion/css/cloud-zoom.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fashion/css/light_box.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fashion/css/mix.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fashion/css/banner.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fashion/css/magicat.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fashion/css/style.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap/css/modal.css" media="all" />
+    <!-- Scripts =====================================================================================-->
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var $jq = jQuery.noConflict();
+    </script>
+    <script type="text/javascript" src="{{ STATIC_URL }}fashion/js/prototype.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}fashion/js/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}fashion/js/common.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}fashion/js/menu.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}fashion/js/banner_pack.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}fashion/js/light_box.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}fashion/js/cloud-zoom.1.0.2.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}fashion/js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}fashion/js/jquery.jcarousel.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}fashion/js/jquery.mix.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}fashion/js/myFunction.js"></script>
+
+
+</head>
+<body id="bg_color" class=" cms-index-index cms-home">
+<!--START OF WRAPPER-->
+<div class="wrapper">
+  <div class="page">
+
+    <!--START OF HEADER-->
+    <div class="header-container">
+      <div class="quick-access">
+        <!--Start Block Cart-->
+        <div class="block block-cart header_cart">
+          <div class="block-content_pan">
+            <div class="summary trigger-minicart">
+              <h2 class="classy"> <span class="cart_icon"><img alt="" src="{{ STATIC_URL }}fashion/images/shoppingbag.png" />
+                  </span><a  onclick="getCart()" href="#">{{ cart.count }} item</a>
+              </h2>
+            </div>
+            <div class="remain_cart" id="minicart">
+              <p class="empty">You have no items in your shopping cart.</p>
+              <div class="actions">
+                <p class="subtotal"> <span class="label">Cart Subtotal:</span> <span class="price">{{ cart.summary }}</span> </p>
+                <button type="button" title="Checkout" class="button"><span><span>Checkout</span></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--End Block Cart-->
+        <!--Start Toplinks-->
+        <ul class="links">
+          {% if user.is_authenticated %}
+                <li class="first"><a href="/user_account" title="My Account">My Account</a></li>
+                <li ><a class="review" href="/logout" title="Log In">Log Out({{ user }})</a></li>
+              {% if user.is_superuser %}
+                  <a class="button" href="/admin">Админка</a>
+              {% endif %}
+          {% else %}
+            <a href="#" onclick="logIn()" class="info">Вход</a>
+            <!--<a href="#openModal3">Регистрация</a>-->
+          {% endif %}
+        </ul>
+        <!--End Toplinks-->
+
+        <!--Start Currency-->
+        <div class="header_currency">
+{#            Место под кнопочки #}
+        </div>
+        <!--End Currency-->
+
+      </div>
+      <!--Start Header Content-->
+      <div class="header">
+        <ul id="logo">
+          <!--Left-->
+          <li class="head-container"> <span>{</span>
+            <h2 class="classy">Бесплатная доставка при заказе от 1000грн</h2>
+            <span>}</span>
+            <p class="top-welcome-msg">Популярные брэнды по низким ценам</p>
+          </li>
+          <!--Left-->
+          <!--Center Logo-->
+          <li class="logo-box">
+            <h1 class="logo"><strong>Shop Cherry</strong><a href="/" title="Santana Commerce" class="logo"><img src="{{ STATIC_URL }}fashion/images/logo.png" alt="Santana Commerce" /></a></h1>
+          </li>
+          <!--Center Logo-->
+
+          <!--Right-->
+          <li class="head-container"> <span>{</span>
+            <h2 class="classy">Call us - +1 999 999 9999</h2>
+            <span>}</span>
+            <div id="search-bar">
+              <div class="top-bar">
+                <form id="search_mini_form" action="/search">
+                  <div class="form-search">
+                    <input
+                     onfocus="if(this.value=='Search') {this.value=''};" onblur="if(this.value=='') {this.value='Search'};"
+                     id="search" name="q" value="Search" class="input-text" type="text" />
+                    <button type="submit" title="Go" class="button">Go</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </li>
+          <!--Right-->
+        </ul>
+        <!--Start of Navigation-->
+        <div class="nav-container">
+          <ul id="nav">
+            <li><a href="/">Главная</a></li>
+              {% for part in parts %}
+                  <li class="level0 nav-1 level-top first parent"> <a href="/{{ part.id }}" class="level-top"> <span>{{ part.name }}</span> </a>
+              {% endfor %}
+            </li>
+            <li class="level0 level-top"> <a href="/contacts" class="level-top"> <span>Контакты</span> </a> </li>
+            <li class="level0 level-top"> <a href="#" onclick="getCart()" class="level-top"> <span>Конзина</span> </a> </li>
+
+          </ul>
+        </div>
+        <!--End of Navigation-->
+      </div>
+      <!--End Header Content-->
+    </div>
+    <!--END OF HEADER-->
+
+    {% block content %}
+	{% endblock %}
+
+
+    <!--START OF FOOTER-->
+      <div style="display: none;" id="back-top"> <a href="#"><img alt="" src="{{ STATIC_URL }}fashion/images/backtop.gif"/></a> </div>
+      <div class="footer-container">
+        <div class="footer">
+          <div class="f-fix">
+            <div class="frame">.</div>
+            <!--Shipping Block-->
+            <div class="free-shipping">Enjoy free shipping <span>on all orders as our holiday gift for you!</span></div>
+            <!--Shipping Block-->
+
+            <!--Newsletter-->
+            <form method="post" id="newsletter-validate-detail" action="">
+                {% csrf_token %}
+              <div class="form-subscribe">
+                <div class="form-subscribe-header">Sign up for newsletter</div>
+                <div class="input-box">
+                  <input
+                  onfocus="if(this.value=='Enter email address') {this.value=''};" onblur="if(this.value=='') {this.value='Enter email address'};"
+                  value="Enter email address" name="email" id="newsletter" title="Sign up for newsletter" class="input-text required-entry validate-email" type="text" />
+                  <button type="submit" title="Submit" class="button"><span>Submit</span></button>
+                </div>
+              </div>
+            </form>
+            <!--Newsletter-->
+
+          </div>
+          <div class="f-left bottom_links">
+            <div class="footer-content">
+              <div class="block_1">
+                <h3>About us</h3>
+                <!--Footer links-->
+                <ul class="footer_links">
+                  <li> <a href="#">About Us</a></li>
+                  <li> <a href="#">Customer Service</a></li>
+                  <li> <a href="#">Privacy Policy</a></li>
+                </ul>
+              </div>
+              <div class="block_1">
+                <h3>Customer Services</h3>
+                <!--Footer links-->
+                <ul class="footer_links">
+                  <li> <a href="#">Shipping &amp; Returns</a></li>
+                  <li> <a href="#">Secure Shopping</a></li>
+                  <li> <a href="#">Contact us</a></li>
+                </ul>
+              </div>
+              <div class="block_1">
+              <!--Footer links-->
+                <h3>Terms &amp; Conditions</h3>
+                <ul class="footer_links">
+                  <li> <a href="#">Press Room</a></li>
+                  <li> <a href="#">Help</a></li>
+                  <li> <a href="#">Terms &amp; Conditions</a></li>
+                </ul>
+              </div>
+              <div class="block_2">
+                <h3>Connect &amp; Share</h3>
+                <!--Social links-->
+                <div class="social_box">
+                  <div class="facebook"><a title="Facebook" href="#"></a></div>
+                  <div class="twitter"><a title="Twitter" href="#"></a></div>
+                  <div class="linkedin"><a title="Linkedin" href="#"></a></div>
+                  <div class="youtube"><a title="Youtube" href="#"></a></div>
+                </div>
+                <!--Payment Icons-->
+                <div class="payment"> <img src="{{ STATIC_URL }}fashion/images/amexp.jpg" alt="" /> <img src="{{ STATIC_URL }}fashion/images/visa.jpg" alt="" /> <img src="{{ STATIC_URL }}fashion/images/mastercard.jpg" alt="" /> <img src="{{ STATIC_URL }}fashion/images/discover.jpg" alt="" /> </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <address>
+        © 2015 Konstantyn Davidenko. All Rights Reserved. Design &amp; Develop by <a href="mailto:kostya_ya@mail.ru" >send mail</a>
+        </address>
+      </div>
+    <!--END OF FOOTER-->
+  </div>
+  <!--Minicart JS-->
+  <script type="text/javascript">
+	 var minicart_timer;
+    jQuery(".trigger-minicart").hover(function(){
+        jQuery("#minicart").slideDown();
+    });
+    jQuery("#minicart").mouseleave(function(){
+        jQuery("#minicart").slideUp();
+    });
+    jQuery("#minicart").hover(function(){
+        clearTimeout(minicart_timer);
+    });
+	jQuery(document).ready(function(){
+	jQuery('.pagebox_btn').click(function(){
+		if(parseInt(jQuery('.page_pan').css('left')) < 0)
+		{
+			jQuery('.page_pan').animate({ left: '0' }, 600, 'easeOutQuint');
+		}
+		else{
+			jQuery('.page_pan').animate({ left: '-100px' }, 600, 'easeOutQuint');
+			}
+		});
+		});
+</script>
+
+
+</div>
+<!--pages box-->
+<div class="page_pan" style="left:-100px;">
+	<div class="page_box">
+    	<a href="/">Главная</a>
+        {% for part in parts %}
+            <a href="/{{ part.id }}">{{ part.name }}</a>
+        {% endfor %}
+        <a href="/checkout">Корзина</a>
+        <a href="/contacts">Контакты</a>
+    </div>
+    <div class="pagebox_btn">
+    	<span>P</span>
+        <span>A</span>
+        <span>G</span>
+        <span>E</span>
+        <span>S</span>
+    </div>
+</div>
+<!--end pages box-->
+
+{# MODAL WONDOW #}
+
+<div id="openModal3" class="modalDialog">
+   <div>
+      <a href="#close" title="Close" class="close1">X</a>
+        <form action="/register/" method="post">
+          {% csrf_token %}
+            <p><input class="input-text" name="username" type="text" placeholder="Логин" autofocus required/></p>
+            <p><input class="input-text" name="pass1" type="password" placeholder="Пароль" required/></p>
+            <p><input class="input-text" name="pass2" type="password" placeholder="Подтверждение пароля" required/></p>
+            <p><input class="input-text" name="mail" type="" placeholder="Почта" required/></p>
+            <p><button type="submit">Зарегистрироваться</button></p>
+        </form>
+   </div>
+</div>
+
+<div id="openModal_Cart" class="modalDialog">
+   <div style="width: 700px;">
+      <a onclick="cartClose('openModal_Cart')" href="#" title="Close" class="close1">X</a>
+       <div id="cart">
+       </div>
+   </div>
+</div>
+
+<div id="MyModal" class="modalDialog">
+   <div>
+      <a href="" title="Close" class="close1">X</a>
+       <div id="MyModalData">
+       </div>
+   </div>
+</div>
+
+
+<!--END OF WRAPPER-->
+</body>
+</html>
+
